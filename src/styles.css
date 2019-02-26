@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+/*.bd-placeholder-img {*/
+  /*font-size: 1.125rem;*/
+  /*text-anchor: middle;*/
+  /*-webkit-user-select: none;*/
+  /*-moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /*user-select: none;*/
+/*}*/
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
@@ -42,7 +42,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #333;
+  background-color: teal;
 }
 
 body {
@@ -54,8 +54,8 @@ body {
 }
 
 .cover-container {
-  max-width: 50%;
-
+  max-width: 70%;
+border: white 1px solid;
 }
 
 
