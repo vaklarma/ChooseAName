@@ -4,7 +4,7 @@ import {FirstnameListComponent} from './firstname-list/firstname-list.component'
 
 const routes: Routes = [
   {
-    path: 'firstname',
+    path: '',
     children: [
       {path: '', component: FirstnameListComponent},
     ]

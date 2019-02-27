@@ -1,13 +1,35 @@
-<header class="masthead mb-auto">
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="inner">
-    <h3 class="masthead-brand">
+  <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <app-navbar-item url="/home" navClass="nav-link" linkText="Home"></app-navbar-item>
 
-      <app-navbar-item url="/home" linkText="Choose a first name"></app-navbar-item>
-    </h3>
-    <nav class="nav nav-masthead justify-content-center">
-      <app-navbar-item url="/home" linkText="Home"></app-navbar-item>
-      <app-navbar-item url="/about" linkText="About"></app-navbar-item>
-    </nav>
+        <!--<a class="nav-link" href="#">Centered nav only <span class="sr-only">(current)</span></a>-->
+      </li>
+      <li class="nav-item">
+        <app-navbar-item url="/about" navClass="nav-link" linkText="About"></app-navbar-item>
+      </li>
+      <li class="nav-item">
+        <app-navbar-item url="/firstname" navClass="nav-link" linkText="Firstnames"></app-navbar-item>
+      </li>
+
+    </ul>
   </div>
-</header>
+</nav>
+  <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">-->
+  <!--<h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>-->
+  <!--<nav class="my-2 my-md-0 mr-md-3">-->
+    <!--<app-navbar-item url="/home" navClass="p-2 text-dark" linkText="Home"></app-navbar-item>-->
+    <!--<app-navbar-item url="/about" navClass="p-2 text-dark" linkText="About"></app-navbar-item>-->
+    <!--<a class="p-2 text-dark" href="#">Features</a>-->
+    <!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
+    <!--<a class="p-2 text-dark" href="#">Support</a>-->
+    <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+  <!--</nav>-->
+  <!--<a class="btn btn-outline-primary" href="#">Sign up</a>-->
+  <!--</div>-->
+
