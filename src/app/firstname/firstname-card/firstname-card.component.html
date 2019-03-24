@@ -1,29 +1,27 @@
 <div class="card-deck mb-3 text-center mx-auto">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      <h2 class="my-0 font-weight-normal">Gyula</h2>
+      <h2 class="my-0 font-weight-normal">{{firstName.firstname}}</h2>
+      <span>{{currentItemIndex}} / {{maximumItemIndex}}</span>
     </div>
     <div class="card-body">
       <h4 class="card-title pricing-card-title">
-        Biró Gyula
+        Biró {{firstName.firstname}}
       </h4>
       <p>
-        A Gyula férfinév a régi magyar gyula méltóságnévből származik. A VIII-IX. században a magyaroknál egy
-        úgynevezett kettős fejedelmi rendszer volt a gyula, mint fővezéri rang, és a kende, mint főbírói rang.
-        Érdemes megfigyelni, hogy az etruszkoknál is e fejedelmi rendszer volt, zilah és kündü.
+        {{firstName.description}}
       </p>
-      <h4>Névnapok: </h4>
-      <ul class="list-unstyled mt-3 mb-4">
-        <li>10 users included</li>
-        <li>2 GB of storage</li>
-        <li>Email support</li>
-        <li>Help center access</li>
-      </ul>
+
       <button
-        (click)="throwThisFirstName()"
+        (click)="throwThisFirstName(false)"
         type="button"
-        class="btn btn-lg btn-block btn-outline-primary">Eldob</button>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary">Megtart</button>
+        class="btn btn-lg btn-block btn-outline-primary">Eldob
+      </button>
+      <button
+        (click)="throwThisFirstName(true)"
+        type="button"
+        class="btn btn-lg btn-block btn-outline-primary">
+        Megtart</button>
     </div>
   </div>
 </div>

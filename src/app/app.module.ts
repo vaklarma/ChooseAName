@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {CoreModule} from './core/core.module';
 import {AlertModule} from 'ngx-bootstrap';
-
+import {environment} from '../environments/environment.prod';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +17,11 @@ import {AlertModule} from 'ngx-bootstrap';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
