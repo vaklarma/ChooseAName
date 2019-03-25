@@ -46,8 +46,8 @@ export class FirstnameService {
 
   setSelectedFirstName(key: string, keepIt: boolean) {
 
-    const userId = 'sampleUserId951';
-    return this.afDb.object(`users/${userId}/selectedFirstNames/${key}`)
+    const userId = 'ViPzYKoyIKe56uogOTr9XqzdrkK2';
+    return this.afDb.object(`users/${userId}/visitedFirstNames/${key}`)
       .set(
         {
           'keepIt': keepIt

@@ -27,7 +27,7 @@ export class FirstnameListComponent implements OnInit {
   }
 
   onThrowIt($event: boolean) {
-    this.firstNameService.setSelectedFirstName(this.firstNameKeys[1], $event);
+    this.firstNameService.setSelectedFirstName(this.firstNameKeys[this.firstNameKeysIndex], $event);
     this.nextFirstName();
   }
 

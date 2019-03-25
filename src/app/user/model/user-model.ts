@@ -1,8 +1,10 @@
 export class UserModel {
-  id: string;
-  name: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  profilePictureUrl: string;
+  profilePictureUrl?: string;
+  gender: string;
   selectedFirstNames?: { [key: string]: string };
 
 

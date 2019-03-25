@@ -9,6 +9,7 @@ import {environment} from '../environments/environment.prod';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,6 +18,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    FormsModule,
     AlertModule.forRoot(),
 
     AngularFireModule.initializeApp(environment.firebase),
