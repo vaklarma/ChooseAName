@@ -1,0 +1,15 @@
+.container{
+  padding:5%;
+}
+.img{
+  text-align:right;
+}
+ .details{
+  border-left:3px solid #ded4da;
+  text-align: left;
+}
+.details p{
+  font-size:15px;
+  font-weight:bold;
+
+}

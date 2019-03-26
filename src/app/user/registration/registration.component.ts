@@ -21,8 +21,8 @@ export class RegistrationComponent implements OnInit {
         registrationLastName: ['testLastName'],
         registrationEmail: ['valami@gmail.com'],
         registrationPassword: ['tryPassword'],
-        registrationRepeatPassword: [null, Validators.required],
-        gender: ['male'],
+        registrationRepeatPassword: ['tryPassword'],
+        registrationGender: ['Male'],
       }
     );
   }

@@ -39,9 +39,15 @@ export class UserService {
     return from(this.afAuth.auth.signInWithEmailAndPassword(email, password));
   }
 
-  logout() {
+  logout(): boolean {
+    let isLoggedOutSuccess;
     this.afAuth.auth.signOut();
     this.userEmailAsUserName.next(null);
+
+    this.isLoggedIn$.subscribe(
+      isLoggedIn => isLoggedOutSuccess = isLoggedIn
+    );
+    return !isLoggedOutSuccess;
   }
 
   registrationToFireBaseAuth(registrationFormObject) {

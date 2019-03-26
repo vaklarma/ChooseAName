@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08"
+          aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -15,37 +16,43 @@
       <li class="nav-item">
         <app-navbar-item url="/firstname" navClass="nav-link" linkText="Firstnames"></app-navbar-item>
       </li>
-      <li class="nav-item">
-        <app-navbar-item url="/user/login" navClass="nav-link" linkText="Login"></app-navbar-item>
-      </li>
-      <li class="nav-item">
-        <app-navbar-item url="/user/registration" navClass="nav-link" linkText="Registration"></app-navbar-item>
-      </li>
 
-      <li class="nav-item">
-        <a class="nav-item nav-link" routerLinkActive="active" (click)="logout()" routerLink="#">
-          Logout
-          ( {{userName}})
-        </a>
-      </li>
+<!--START Check the user is Logged In-->
+      <ng-container *ngIf="isloggedIn;else notLoggedInBlock">
+        <li class="nav-item">
+          <app-navbar-item url="/user/profile" navClass="nav-link" linkText="Profile"></app-navbar-item>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-item nav-link" routerLinkActive="active" (click)="logout()" routerLink="#">
+            Logout
+            ( {{userName}})
+          </a>
+        </li>
+      </ng-container>
 
-
-
-
+      <ng-template #notLoggedInBlock>
+        <li class="nav-item">
+          <app-navbar-item url="/user/login" navClass="nav-link" linkText="Login"></app-navbar-item>
+        </li>
+        <li class="nav-item">
+          <app-navbar-item url="/user/registration" navClass="nav-link" linkText="Registration"></app-navbar-item>
+        </li>
+      </ng-template>
+      <!--END Check the user is Logged In-->
     </ul>
   </div>
 </nav>
-  <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">-->
-  <!--<h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>-->
-  <!--<nav class="my-2 my-md-0 mr-md-3">-->
-    <!--<app-navbar-item url="/home" navClass="p-2 text-dark" linkText="Home"></app-navbar-item>-->
-    <!--<app-navbar-item url="/about" navClass="p-2 text-dark" linkText="About"></app-navbar-item>-->
-    <!--<a class="p-2 text-dark" href="#">Features</a>-->
-    <!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
-    <!--<a class="p-2 text-dark" href="#">Support</a>-->
-    <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
-  <!--</nav>-->
-  <!--<a class="btn btn-outline-primary" href="#">Sign up</a>-->
-  <!--</div>-->
+<!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">-->
+<!--<h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>-->
+<!--<nav class="my-2 my-md-0 mr-md-3">-->
+<!--<app-navbar-item url="/home" navClass="p-2 text-dark" linkText="Home"></app-navbar-item>-->
+<!--<app-navbar-item url="/about" navClass="p-2 text-dark" linkText="About"></app-navbar-item>-->
+<!--<a class="p-2 text-dark" href="#">Features</a>-->
+<!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
+<!--<a class="p-2 text-dark" href="#">Support</a>-->
+<!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+<!--</nav>-->
+<!--<a class="btn btn-outline-primary" href="#">Sign up</a>-->
+<!--</div>-->
 

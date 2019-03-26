@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user/services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +9,12 @@ import {UserService} from '../../user/services/user.service';
 })
 export class NavbarComponent implements OnInit {
   userName: string;
-  loggedIn: boolean;
+  isloggedIn: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private router: Router) {
     this.userService.isLoggedIn$.subscribe(
-      isLoggedIn => this.loggedIn = isLoggedIn
+      isLoggedIn => this.isloggedIn = isLoggedIn
     );
 
     this.userService.userEmailAsUserName.subscribe(
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout();
+   const isLoggedOut = this.userService.logout();
+ this.router.navigate(['user/login']);
   }
 }
