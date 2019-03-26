@@ -8,13 +8,16 @@ import {UserService} from '../../user/services/user.service';
 })
 export class NavbarComponent implements OnInit {
   userName: string;
+  loggedIn: boolean;
 
   constructor(private userService: UserService) {
+    this.userService.isLoggedIn$.subscribe(
+      isLoggedIn => this.loggedIn = isLoggedIn
+    );
 
-    setTimeout( () => {
-      this.userName = this.userService.userEmailAsUserName;
-    }, 500);
-
+    this.userService.userEmailAsUserName.subscribe(
+      loggedInUserName => this.userName = loggedInUserName
+    );
 
   }
 
@@ -22,6 +25,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-      this.userService.logout();
+    this.userService.logout();
   }
 }

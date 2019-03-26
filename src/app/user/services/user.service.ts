@@ -9,8 +9,9 @@ import {UserModel} from '../model/user-model';
 })
 export class UserService {
   createdUser: UserModel;
-userEmailAsUserName: string;
+  userEmailAsUserName = new ReplaySubject<string>(1);
   isLoggedIn$ = new ReplaySubject<boolean>(1);
+
   public user = new ReplaySubject<any>(1);
 
   constructor(private afDb: AngularFireDatabase,
@@ -23,7 +24,7 @@ userEmailAsUserName: string;
           if (remoteUser != null) {
             this.isLoggedIn$.next(true);
             this.user.next(remoteUser);
-             this.userEmailAsUserName = remoteUser.email;
+            this.userEmailAsUserName.next(remoteUser.email);
 
           } else {
             this.isLoggedIn$.next(false);
@@ -40,6 +41,7 @@ userEmailAsUserName: string;
 
   logout() {
     this.afAuth.auth.signOut();
+    this.userEmailAsUserName.next(null);
   }
 
   registrationToFireBaseAuth(registrationFormObject) {
