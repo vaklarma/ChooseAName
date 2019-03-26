@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +12,8 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class RegistrationComponent implements OnInit {
         registrationPassword: ['tryPassword'],
         registrationRepeatPassword: ['tryPassword'],
         registrationGender: ['Male'],
+        registrationProfilePictureUrl: ['http://www.topvending.co.za/wp-content/uploads/2015/09/placeholder-man-grid-240x268.png'],
       }
     );
   }
@@ -30,5 +33,6 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     console.log(this.registrationForm.value);
     this.userService.registrationToFireBaseAuth(this.registrationForm.value);
+    this.router.navigate(['user/profile']);
   }
 }

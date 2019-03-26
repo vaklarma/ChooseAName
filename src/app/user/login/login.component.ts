@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+errorInLoginMethod: boolean;
   constructor(private userService: UserService,
               private router: Router) {
 
@@ -19,7 +19,10 @@ export class LoginComponent {
     this.userService.login(email, password)
       .subscribe(
         data => this.router.navigate(['user/profile']),
-        err => console.log(err)
+        err => {
+          this.errorInLoginMethod = err;
+          console.log(err);
+        }
       )
     ;
   }
