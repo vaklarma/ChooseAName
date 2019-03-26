@@ -23,6 +23,17 @@
         <app-navbar-item url="/user/registration" navClass="nav-link" linkText="Registration"></app-navbar-item>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLinkActive="active" (click)="logout()" routerLink="#">
+          Logout
+          ( {{userName}})
+        </a>
+      </li>
+
+
+
+
+
     </ul>
   </div>
 </nav>

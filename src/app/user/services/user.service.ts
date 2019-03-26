@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {from} from 'rxjs';
+import {from, Observable, ReplaySubject} from 'rxjs';
 import {UserModel} from '../model/user-model';
 
 @Injectable({
@@ -9,17 +9,37 @@ import {UserModel} from '../model/user-model';
 })
 export class UserService {
   createdUser: UserModel;
+userEmailAsUserName: string;
+  isLoggedIn$ = new ReplaySubject<boolean>(1);
+  public user = new ReplaySubject<any>(1);
 
   constructor(private afDb: AngularFireDatabase,
               private afAuth: AngularFireAuth) {
+    this.afAuth.authState
+      .subscribe(
+        remoteUser => {
+
+
+          if (remoteUser != null) {
+            this.isLoggedIn$.next(true);
+            this.user.next(remoteUser);
+             this.userEmailAsUserName = remoteUser.email;
+
+          } else {
+            this.isLoggedIn$.next(false);
+            console.log('nem vagyunk bejelentkezve');
+          }
+          console.log('AuthState: ', remoteUser);
+        }
+      );
   }
 
-  login() {
-
+  login(email: string, password: string): Observable<any> {
+    return from(this.afAuth.auth.signInWithEmailAndPassword(email, password));
   }
 
   logout() {
-
+    this.afAuth.auth.signOut();
   }
 
   registrationToFireBaseAuth(registrationFormObject) {
@@ -44,7 +64,7 @@ export class UserService {
   }
 
   saveToUsersWithMoreInfo(saveUser: UserModel) {
-  return this.afDb.object(`users/${saveUser.id}`)
+    return this.afDb.object(`users/${saveUser.id}`)
       .set(saveUser)
       .then(
         data => data
