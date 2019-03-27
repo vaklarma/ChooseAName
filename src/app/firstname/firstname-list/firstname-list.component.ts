@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FirstnameService} from '../firstname.service';
 import {FirstnameModel} from '../model/firstname-model';
+import {UserService} from '../../user/services/user.service';
 
 @Component({
   selector: 'app-firstname-list',
@@ -12,7 +13,8 @@ export class FirstnameListComponent implements OnInit {
   firstNameKeysIndex = 0;
   oneFirstNameObject: FirstnameModel;
 
-  constructor(private firstNameService: FirstnameService) {
+  constructor(private firstNameService: FirstnameService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +29,10 @@ export class FirstnameListComponent implements OnInit {
   }
 
   onThrowIt($event: boolean) {
-    this.firstNameService.setSelectedFirstName(this.firstNameKeys[this.firstNameKeysIndex], $event);
+    this.userService.addSelectedFirstName(this.firstNameKeys[this.firstNameKeysIndex], $event)
+      .subscribe(
+        data => console.log(data)
+      );
     this.nextFirstName();
   }
 

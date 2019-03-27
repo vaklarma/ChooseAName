@@ -5,7 +5,7 @@ export class UserModel {
   email: string;
   profilePictureUrl?: string;
   gender: string;
-  selectedFirstNames?: { [key: string]: string };
+  visitedFirstNames?: { [key: string]: boolean };
 
 
   constructor(param?: UserModel) {

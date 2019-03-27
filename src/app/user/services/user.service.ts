@@ -3,6 +3,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, ReplaySubject} from 'rxjs';
 import {UserModel} from '../model/user-model';
+import {first, flatMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -94,5 +95,20 @@ export class UserService {
 
   getCurrentUser(): Observable<UserModel> {
     return this.user;
+  }
+
+  addSelectedFirstName(firstNameKey: string, keep: boolean): Observable<any> {
+    console.log(firstNameKey, keep);
+    return this.user
+      .pipe(
+        first()
+      )
+      .pipe(flatMap(
+        user => {
+          return this.afDb.object(`users/${user.id}/visitedFirstNames/${firstNameKey}`)
+            .set(keep);
+        }
+      ));
+
   }
 }

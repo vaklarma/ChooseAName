@@ -3,6 +3,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {map} from 'rxjs/operators';
 import {FirstnameModel} from './model/firstname-model';
 import {Observable} from 'rxjs';
+import {UserService} from '../user/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import {Observable} from 'rxjs';
 export class FirstnameService {
 
 
-  constructor(private afDb: AngularFireDatabase) {
+  constructor(private afDb: AngularFireDatabase,
+              private userService: UserService) {
 
   }
 
@@ -44,14 +46,4 @@ export class FirstnameService {
       );
   }
 
-  setSelectedFirstName(key: string, keepIt: boolean) {
-
-    const userId = 'ViPzYKoyIKe56uogOTr9XqzdrkK2';
-    return this.afDb.object(`users/${userId}/visitedFirstNames/${key}`)
-      .set(
-        {
-          'keepIt': keepIt
-        }
-      );
-  }
 }
