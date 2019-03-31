@@ -24,13 +24,12 @@
   </div>
 <h3> Visited firstnames</h3>
 
-  <ul>
-    <li *ngFor="let fname of fnames ">{{fname.key}} {{fname.value}}</li>
+  <ul  class="list-group">
+    <li class="list-group-item"
+      *ngFor="let fname of fnames ">{{fname.key}} {{fname.value}}</li>
 
   </ul>
 
-<pre>
-{{fnames | json}}
-</pre>
+{{fnamedata |json}}
 
 </ng-container>

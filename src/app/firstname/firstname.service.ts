@@ -11,8 +11,7 @@ import {UserService} from '../user/services/user.service';
 export class FirstnameService {
 
 
-  constructor(private afDb: AngularFireDatabase,
-              private userService: UserService) {
+  constructor(private afDb: AngularFireDatabase) {
 
   }
 
@@ -45,5 +44,6 @@ export class FirstnameService {
         )
       );
   }
+
 
 }
