@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {from, Observable, ReplaySubject, zip} from 'rxjs';
+import {from, Observable, ReplaySubject} from 'rxjs';
 import {UserModel} from '../model/user-model';
 import {first, flatMap, mergeMap} from 'rxjs/operators';
 import {FirstnameService} from '../../firstname/firstname.service';
@@ -80,23 +80,23 @@ export class UserService {
     //   })
     //   .subscribe();
 
-zip(
+
     this.user
       .pipe(
         mergeMap(firstNameKeys => {
           return from(Object.keys(firstNameKeys.visitedFirstNames))
             .pipe(
-              mergeMap((key) => {
+              mergeMap((key, index) => {
+                console.log(index);
                 return this.firstNameService.getOneFirstName(key);
 
               })
             );
         })
-      ),
-  this.user
-)
+      )
+
       .subscribe(
-        result => console.log(result)
+        result => console.log(result.firstname)
       );
 
   }
