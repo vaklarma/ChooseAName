@@ -3,7 +3,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, ReplaySubject} from 'rxjs';
 import {UserModel} from '../model/user-model';
-import {first, flatMap, mergeMap} from 'rxjs/operators';
+import {first, flatMap, map, mergeMap} from 'rxjs/operators';
 import {FirstnameService} from '../../firstname/firstname.service';
 
 @Injectable({
@@ -13,26 +13,58 @@ export class UserService {
   createdUser: UserModel;
   userEmailAsUserName = new ReplaySubject<string>(1);
   isLoggedIn$ = new ReplaySubject<boolean>(1);
-
+  visitedFirstnames = new Array();
   public user = new ReplaySubject<UserModel>(1);
 
   constructor(private afDb: AngularFireDatabase,
               private afAuth: AngularFireAuth,
               private firstNameService: FirstnameService) {
+
     this.afAuth.authState
       .subscribe(
         fbAuthenticatedUser => {
-          console.log('AuthState: ', fbAuthenticatedUser);
           if (fbAuthenticatedUser != null) {
-            this.getUserById(fbAuthenticatedUser.uid)
-              .subscribe(
-                fbDetailedUserInfo => {
-                  this.isLoggedIn$.next(true);
-                  this.user.next(fbDetailedUserInfo);
-                  this.userEmailAsUserName.next(fbDetailedUserInfo.email);
+            console.log('AuthState: ', fbAuthenticatedUser.email);
+            this.userEmailAsUserName.next(fbAuthenticatedUser.email);
+            this.isLoggedIn$.next(true);
+            this.getUserById(fbAuthenticatedUser.uid).subscribe(
+              user => {
+                this.user.next(user);
 
-                }
-              );
+                this.user
+                  .pipe(
+                    flatMap((firstNameKeys) => {
+                      if (firstNameKeys) {
+                        return from(Object.keys(firstNameKeys.visitedFirstNames))
+                          .pipe(
+                            mergeMap((key) => {
+                              console.log('meghiv');
+
+                              return this.firstNameService.getOneFirstName(key);
+                            })
+                          );
+                      }
+                    })
+                  )
+                  .pipe(
+                    map(
+                      resp => {
+                        this.visitedFirstnames.push(resp.firstname);
+                        return this.visitedFirstnames;
+                      }
+                    )
+                  )
+                  .subscribe(
+                    visitedFname => {
+                      if (visitedFname) {
+                     console.log(this.visitedFirstnames);
+                      }
+                    }
+                  );
+              }
+            );
+
+
           } else {
             this.isLoggedIn$.next(false);
             console.log('nem vagyunk bejelentkezve');
@@ -40,6 +72,39 @@ export class UserService {
 
         }
       );
+    // .pipe(
+    //   mergeMap(userId => {
+    //     return this.getUserById(userId.uid);
+    //   })
+    // )
+    // .pipe(
+    //   tap(
+    //     user => this.user.next(user)
+    //   )
+    // )
+
+
+    // this.afAuth.authState
+    //   .subscribe(
+    //     fbAuthenticatedUser => {
+    //       console.log('AuthState: ', fbAuthenticatedUser);
+    //       if (fbAuthenticatedUser != null) {
+    //         this.getUserById(fbAuthenticatedUser.uid)
+    //           .subscribe(
+    //             fbDetailedUserInfo => {
+    //               this.isLoggedIn$.next(true);
+    //               this.user.next(fbDetailedUserInfo);
+    //               this.userEmailAsUserName.next(fbDetailedUserInfo.email);
+    //
+    //             }
+    //           );
+    //       } else {
+    //         this.isLoggedIn$.next(false);
+    //         console.log('nem vagyunk bejelentkezve');
+    //       }
+    //
+    //     }
+    //   );
   }
 
   getAllProfileData() {
@@ -81,23 +146,22 @@ export class UserService {
     //   .subscribe();
 
 
-    this.user
+    return this.user
       .pipe(
-        mergeMap(firstNameKeys => {
+        mergeMap((firstNameKeys) => {
+
           return from(Object.keys(firstNameKeys.visitedFirstNames))
             .pipe(
-              mergeMap((key, index) => {
-                console.log(index);
+              mergeMap((key) => {
                 return this.firstNameService.getOneFirstName(key);
-
               })
             );
         })
-      )
-
-      .subscribe(
-        result => console.log(result.firstname)
       );
+    // .pipe(
+    //   tap(
+    //     resp => console.log(resp)
+    //   )
 
   }
 
@@ -108,7 +172,8 @@ export class UserService {
   logout() {
 
     this.afAuth.auth.signOut();
-    this.userEmailAsUserName.next(null);
+    this.user.next(null);
+    this.isLoggedIn$.next(false);
 
 
   }
